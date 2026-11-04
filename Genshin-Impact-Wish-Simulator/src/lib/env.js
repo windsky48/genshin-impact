@@ -1,4 +1,8 @@
-const host = import.meta.env.VITE_HOST || '';
+const rawHost = (import.meta.env.VITE_HOST || '').trim();
+// 域名没写协议时补上 https://。
+// 否则 og:image / fluid-icon 会退化成相对路径（如 genshin.wisas.link/meta-picture.jpg），
+// SvelteKit 预渲染会把它当站内资源去抓，404 直接让整个构建失败。
+const host = rawHost && !/^https?:\/\//i.test(rawHost) ? `https://${rawHost}` : rawHost;
 export const HOST = host.replace(/^\/|\/$/g, '');
 
 export const APP_TITLE = import.meta.env.VITE_APP_TITLE || 'Genshin Impact Wish Simulator';

@@ -68,11 +68,29 @@
 
 | 变量 | 说明 | 默认 |
 |---|---|---|
-| `VITE_HOST` | 站点正式域名，用于 og:image / canonical 等 meta 标签 | 空 |
+| `VITE_HOST` | 站点正式域名，**必须带 `https://`** | 空 |
 | `VITE_APP_TITLE` | 站点标题 | 原神祈愿模拟器 |
 | `BASE_PATH` | 部署到子目录时用，例如 `/genshin` | 空（根目录） |
 
 平台上的环境变量优先级高于仓库里的 `.env.production`，改域名直接在控制台配就行。
+
+> ### ⚠️ `VITE_HOST` 一定要带协议
+>
+> 填 `genshin.wisas.link`（不带 `https://`）会让预渲染直接失败：
+>
+> ```
+> Error: 404 /genshin.wisas.link/meta-picture.jpg (linked from /)
+> [vite-plugin-svelte-kit] Prerendering failed with code 1
+> ```
+>
+> 原因是 `og:image` / `fluid-icon` 会变成**相对路径**，
+> SvelteKit 预渲染时把它当站内资源去抓，找不到就 404 → 整个构建挂掉。
+>
+> 本仓库的 `src/lib/env.js` 已经做了兜底（没协议时自动补 `https://`），
+> 但**填对最省事**：`VITE_HOST=https://genshin.wisas.link`。
+>
+> 顺带一提：这个坑对上游原版同样存在 —— 它自己的 CI 因为 `VITE_HOST` 为空
+> （URL 变成 `/meta-picture.jpg`，能命中 `static/meta-picture.jpg`）才没暴露。
 
 **构建流程实测**：本地跑 `npm run build:edgeone` 会在**仓库根目录**生成 `dist/`
 （1934 个文件 / 141MB），包含 `index.html`、`edgeone.json`、`sw.js`，
@@ -394,7 +412,11 @@ $env:SOME_BIG_VAR=$null; npm run build
 
 > Linux 上没有这个限制（argv 上限约 2MB），所以 EdgeOne Pages 的构建机不受影响。
 
-### 3. `npm run dev` 在部分环境会被安全删除策略打断
+### 3. 预渲染报 `404 /xxx/meta-picture.jpg`
+
+见第二节的「`VITE_HOST` 一定要带协议」。改环境变量，或用仓库里已做兜底的 `src/lib/env.js`。
+
+### 4. `npm run dev` 在部分环境会被安全删除策略打断
 
 Vite 的依赖预构建会清空 `node_modules/.vite/deps_temp`。如果你的环境对批量删除有保护策略  
 （阈值 5 个文件），dev server 会崩在 `SAFE_DELETE_BULK_CONFIRM_REQUIRED`。这是环境限制，与项目无关；  
