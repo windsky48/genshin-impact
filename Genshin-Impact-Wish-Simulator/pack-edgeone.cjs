@@ -7,8 +7,8 @@
  *        node pack-edgeone.cjs                       → ../edgeone-deploy.zip
  *        node pack-edgeone.cjs --out x.zip
  *
- *   2) 整理成目录（EdgeOne Pages Git 集成用，输出目录填 build）
- *        node pack-edgeone.cjs --dist build
+ *   2) 整理成目录（EdgeOne Pages Git 集成用）
+ *        node pack-edgeone.cjs --dist ../dist
  *
  * 做的准备：
  *   1. 校验 EdgeOne Pages 的硬性限制（文件数 / 单文件大小 / 文件名非法字符 / 入口文件）
@@ -16,7 +16,7 @@
  *   3. 剔除 vite-manifest.json（SvelteKit 不建议公开）
  *   4. 为子路由生成目录形式的 index.html（screen/wishitem.html → screen/wishitem/index.html），
  *      这样 /screen/wishitem 和 /screen/wishitem/ 都能命中静态文件，不依赖平台的扩展名补全规则
- *   5. 写入 edgeone.json（SPA fallback + 缓存策略 + 安全响应头）
+ *   5. 写入 edgeone.json（构建四字段 + SPA fallback + 缓存策略 + 安全响应头）
  */
 const fs = require('fs');
 const path = require('path');
@@ -134,7 +134,11 @@ function prepare(srcDir) {
 	}
 
 	// 4) 生成目录形式的入口
-	const htmlFiles = files.filter((f) => f.rel.endsWith('.html') && f.rel !== 'index.html');
+	// 只处理「页面」文件：排除任何层级下的 index.html，
+	// 否则上一轮生成的 adkey/index.html 会被再次处理成 adkey/index/index.html，无限套娃。
+	const htmlFiles = files.filter(
+		(f) => f.rel.endsWith('.html') && !/(^|\/)index\.html$/.test(f.rel)
+	);
 	let added = 0;
 	for (const f of htmlFiles) {
 		const noExt = f.rel.replace(/\.html$/, '');
@@ -148,7 +152,13 @@ function prepare(srcDir) {
 	if (added) log(`  ✓ 已为 ${added} 个子路由生成目录形式入口（/xxx 与 /xxx/ 均可访问）`);
 
 	// 5) 写入 edgeone.json
+	// 跟仓库根目录那份保持一致：构建四字段 + SPA fallback + 缓存策略
 	const edgeoneJson = {
+		name: 'genshin-wish-simulator',
+		installCommand: 'cd Genshin-Impact-Wish-Simulator && npm install',
+		buildCommand: 'cd Genshin-Impact-Wish-Simulator && npm run build:edgeone',
+		outputDirectory: './dist',
+		nodeVersion: '20.18.0',
 		rewrites: [
 			{
 				source: '/*',

@@ -11,7 +11,8 @@
  *
  * 这里做两件事：
  *   1. 跑 vite build，如果它失败但产物目录里已经有新鲜的 index.html，就当作成功继续
- *   2. 调 pack-edgeone.cjs --dist build 整理产物
+ *   2. 调 pack-edgeone.cjs 把产物整理到仓库根目录的 dist/
+ *      （和仓库根的 edgeone.json 里的 outputDirectory 对齐）
  *
  * 用法: node build-edgeone.cjs
  */
@@ -50,8 +51,13 @@ if (result.status !== 0) {
 }
 
 console.log('\n  [2/2] 整理产物');
-const pack = spawnSync(process.execPath, [path.join(APP_DIR, 'pack-edgeone.cjs'), '--dist', 'build'], {
-	stdio: 'inherit',
-	cwd: APP_DIR
-});
+// 输出到仓库根目录的 dist/，和仓库根的 edgeone.json 里的 outputDirectory 对齐
+const pack = spawnSync(
+	process.execPath,
+	[path.join(APP_DIR, 'pack-edgeone.cjs'), '--dist', path.join('..', 'dist')],
+	{
+		stdio: 'inherit',
+		cwd: APP_DIR
+	}
+);
 process.exit(pack.status || 0);
