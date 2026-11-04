@@ -20,6 +20,9 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
+		"pack:edgeone": "node pack-edgeone.cjs",
+		"build:edgeone": "node build-edgeone.cjs",
+		"gen:sw": "node gen-sw.cjs",
 		"tauri": "tauri"
 	},
 	"type": "module",
@@ -30,7 +33,7 @@
 		"dotenv": "^16.3.1",
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
-		"eslint-plugin-svelte3": "^4.0.0",
+		"eslint-plugin-svelte3": "^4.10.0",
 		"postcss": "^8.4.16",
 		"postcss-load-config": "^4.0.1",
 		"postcss-nested": "^5.0.6",

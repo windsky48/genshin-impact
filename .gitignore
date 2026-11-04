@@ -23,3 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 ads.txt
+### EdgeOne Pages 本地打包产物 ###
+edgeone-deploy.zip
+验证截图/
+package-lock.json
