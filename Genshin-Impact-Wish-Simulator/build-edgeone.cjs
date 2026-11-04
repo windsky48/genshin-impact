@@ -11,8 +11,8 @@
  *
  * 这里做两件事：
  *   1. 跑 vite build，如果它失败但产物目录里已经有新鲜的 index.html，就当作成功继续
- *   2. 调 pack-edgeone.cjs 把产物整理到仓库根目录的 dist/
- *      （和仓库根的 edgeone.json 里的 outputDirectory 对齐）
+ *   2. 调 pack-edgeone.cjs 把产物整理到 dist/，并在「仓库根」和「应用目录」各放一份
+ *      （这样无论控制台的「根目录」设成哪一个，outputDirectory: "./dist" 都能找到产物）
  *
  * 用法: node build-edgeone.cjs
  */
@@ -51,7 +51,8 @@ if (result.status !== 0) {
 }
 
 console.log('\n  [2/2] 整理产物');
-// 输出到仓库根目录的 dist/，和仓库根的 edgeone.json 里的 outputDirectory 对齐
+// 输出到仓库根目录的 dist/，和 edgeone.json 里的 outputDirectory 对齐
+const REPO_DIST = path.join(APP_DIR, '..', 'dist');
 const pack = spawnSync(
 	process.execPath,
 	[path.join(APP_DIR, 'pack-edgeone.cjs'), '--dist', path.join('..', 'dist')],
@@ -60,4 +61,19 @@ const pack = spawnSync(
 		cwd: APP_DIR
 	}
 );
+
+if (pack.status === 0) {
+	// 再在应用目录下也放一份 dist/。
+	// 这样无论控制台的「根目录」设成仓库根还是应用目录，
+	// outputDirectory: "./dist" 都能找到产物。
+	const APP_DIST = path.join(APP_DIR, 'dist');
+	try {
+		fs.rmSync(APP_DIST, { recursive: true, force: true });
+	} catch {
+		/* ignore —— cpSync 会覆盖同名文件 */
+	}
+	fs.cpSync(REPO_DIST, APP_DIST, { recursive: true, force: true });
+	console.log(`  ✓ 产物已同时输出到：${REPO_DIST} 与 ${APP_DIST}`);
+}
+
 process.exit(pack.status || 0);

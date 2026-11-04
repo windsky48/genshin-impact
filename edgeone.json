@@ -1,7 +1,7 @@
 {
 	"name": "genshin-wish-simulator",
-	"installCommand": "cd Genshin-Impact-Wish-Simulator && npm install",
-	"buildCommand": "cd Genshin-Impact-Wish-Simulator && npm run build:edgeone",
+	"installCommand": "cd \"$(ls -d Genshin-Impact-Wish-Simulator 2>/dev/null || pwd)\" && npm install",
+	"buildCommand": "cd \"$(ls -d Genshin-Impact-Wish-Simulator 2>/dev/null || pwd)\" && npm run build:edgeone",
 	"outputDirectory": "./dist",
 	"nodeVersion": "20.18.0",
 	"rewrites": [
