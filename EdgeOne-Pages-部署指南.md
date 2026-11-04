@@ -227,7 +227,7 @@ npm run pack:edgeone
 }
 ```
 
-- `buildCommand` / `installCommand` / `outputDirectory` / `nodeVersion` 这四个是**构建流程**，  
+- `buildCommand` / `installCommand` / `outputDirectory` / `nodeVersion` 这四个是**构建流程**，
   少了任何一个平台都会跳过构建直接部署空壳（详见第二节）。
 - `rewrites` 用的是 EdgeOne 认定的 **SPA fallback** 特例写法：先尝试匹配静态资源与 Functions 路由，  
   都匹配不上才回退 `index.html`，由前端路由接管。**不要**再加别的重写规则，否则平台处理顺序不明确。

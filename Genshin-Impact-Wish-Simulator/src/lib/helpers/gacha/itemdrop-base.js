@@ -70,7 +70,7 @@ export const getCharDetails = (charName) => {
 
 export const getWpDetails = (weaponName) => {
 	if (!weaponName) return {};
-	const findWP = weaponsDB.find(({ name }) => weaponName === name);
+	const findWP = weaponsDB.find(({ name }) => name === weaponName);
 	return findWP || {};
 };
 

@@ -29,7 +29,7 @@
 	const handleMuted = ({ detail }) => {
 		const { selected } = detail;
 		isMuted = selected === 'yes';
-		if (!isMuted) pauseSfx('wishBacksound'); //stop sfx Before set config
+		if (isMuted) pauseSfx('wishBacksound'); //stop sfx Before set config
 		localConfig.set('muted', isMuted);
 		if (!isMuted) playSfx('wishBacksound'); // Play SFX after set config
 	};
@@ -41,7 +41,7 @@
 		const isAutoSkip = selected === 'yes';
 		autoskip.set(isAutoSkip);
 		localConfig.set('autoskip', isAutoSkip);
-		if (!isAutoSkip) return readyToPull.set(true);
+		if (isAutoSkip) return readyToPull.set(true);
 		const cekExpress = await meteorCheck();
 		readyToPull.set(cekExpress);
 	};

@@ -7,8 +7,8 @@
  *        node pack-edgeone.cjs                       → ../edgeone-deploy.zip
  *        node pack-edgeone.cjs --out x.zip
  *
- *   2) 整理成目录（EdgeOne Pages Git 集成用）
- *        node pack-edgeone.cjs --dist ../dist
+ *   2) 整理成目录（EdgeOne Pages Git 集成用，输出目录填 build）
+ *        node pack-edgeone.cjs --dist build
  *
  * 做的准备：
  *   1. 校验 EdgeOne Pages 的硬性限制（文件数 / 单文件大小 / 文件名非法字符 / 入口文件）
@@ -16,7 +16,7 @@
  *   3. 剔除 vite-manifest.json（SvelteKit 不建议公开）
  *   4. 为子路由生成目录形式的 index.html（screen/wishitem.html → screen/wishitem/index.html），
  *      这样 /screen/wishitem 和 /screen/wishitem/ 都能命中静态文件，不依赖平台的扩展名补全规则
- *   5. 写入 edgeone.json（构建四字段 + SPA fallback + 缓存策略 + 安全响应头）
+ *   5. 写入 edgeone.json（SPA fallback + 缓存策略 + 安全响应头）
  */
 const fs = require('fs');
 const path = require('path');

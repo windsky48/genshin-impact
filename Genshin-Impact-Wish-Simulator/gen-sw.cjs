@@ -5,13 +5,13 @@
  * 为什么需要这个脚本：
  *   vite-plugin-pwa 在 rollup 的 closeBundle 阶段生成 sw.js，而 SvelteKit 的
  *   closeBundle 排在它前面。若 SvelteKit 那一步因环境限制报错（例如批量删除
- *   保护拦下了 `fs.unlinkSync(vite-manifest.json)`），整个构建会中断，
+ *   保护拦截了 `fs.unlinkSync(vite-manifest.json)`），整个构建会中断，
  *   vite-plugin-pwa 就没机会跑，产物里会缺 sw.js。
  *
  *   本脚本按 vite-plugin-pwa 相同的策略补生成 sw.js：
  *     esbuild 打包 src/sw.js  →  workbox-build injectManifest 注入预缓存清单
  *
- * 用法: node gen-sw.cjs [输出目录]
+ * 用法: node gen-sw.js [输出目录]
  */
 const fs = require('fs');
 const os = require('os');

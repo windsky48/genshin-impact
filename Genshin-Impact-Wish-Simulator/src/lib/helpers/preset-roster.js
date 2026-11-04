@@ -72,7 +72,7 @@ export const clearRoster = () => saveMembers([]);
 
 /**
  * 当前名单的摘要（用于设置菜单展示）
- * @param {Array} members 名单
+ * @param {Array} members 成员数组
  * @returns {object} { count, five, four, three }
  */
 export const rosterSummary = (members) => {

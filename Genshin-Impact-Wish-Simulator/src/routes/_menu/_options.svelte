@@ -228,7 +228,7 @@
 		<!-- Reset -->
 	{:else if name === 'reset'}
 		<button class="option-select" on:click={reset}>
-			<i class="gi-delete" style="vertical-align: bottom; margin-right: 0.2rem" />
+			<i class="gi-delete" style="vertical-align: bottom; line-height: 0; margin-right: .2rem" />
 			{$t('menu.resetButton')}
 		</button>
 
