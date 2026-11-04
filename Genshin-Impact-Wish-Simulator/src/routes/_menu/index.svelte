@@ -9,6 +9,7 @@
 
 	// Components
 	import Options from './Settings.svelte';
+	import RosterManager from './RosterManager.svelte';
 	import Updates from './Updates.svelte';
 	import Sidebar from './_sidebar.svelte';
 	import ProAccess from './ProAccess.svelte';
@@ -49,6 +50,8 @@
 		<div class="content">
 			{#if activeContent === 'options'}
 				<Options />
+			{:else if activeContent === 'roster'}
+				<RosterManager />
 			{:else if activeContent === 'updates'}
 				<Updates />
 			{:else if activeContent === 'proAccess'}

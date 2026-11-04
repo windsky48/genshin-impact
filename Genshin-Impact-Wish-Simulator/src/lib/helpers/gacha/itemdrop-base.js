@@ -5,6 +5,7 @@ import { data as charsDB, onlyStandard } from '$lib/data/characters.json';
 import { memberDB } from '../member-loader';
 import { getRate, prob } from './probabilities';
 import { guaranteedStatus } from '../dataAPI/api-localstore';
+import { isWeightedEnabled, memberWeight } from '../roster';
 
 
 const standardWeapons = (star) => {
@@ -50,13 +51,15 @@ const getAllWeapons = (star) => {
 };
 
 export const getMemberItem = () => {
+	const weighted = isWeightedEnabled();
 	return memberDB
 		.map((arr) => {
 			arr.type = 'member';
 			arr.weaponType = "catalyst";
-			// arr.rarity = 3;
+			// 按名单里设置的星级决定抽取权重（等概率模式下权重恒为 1）
+			arr.chance = memberWeight(arr, weighted);
 			return arr;
-		}); 
+		});
 }
 
 export const getCharDetails = (charName) => {
@@ -67,7 +70,7 @@ export const getCharDetails = (charName) => {
 
 export const getWpDetails = (weaponName) => {
 	if (!weaponName) return {};
-	const findWP = weaponsDB.find(({ name }) => name === weaponName);
+	const findWP = weaponsDB.find(({ name }) => weaponName === name);
 	return findWP || {};
 };
 
