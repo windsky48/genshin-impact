@@ -25,8 +25,8 @@
 ```json
 {
   "name": "genshin-wish-simulator",
-  "installCommand": "cd Genshin-Impact-Wish-Simulator && npm install",
-  "buildCommand": "cd Genshin-Impact-Wish-Simulator && npm run build:edgeone",
+  "installCommand": "cd \"$(ls -d Genshin-Impact-Wish-Simulator 2>/dev/null || pwd)\" && npm install",
+  "buildCommand": "cd \"$(ls -d Genshin-Impact-Wish-Simulator 2>/dev/null || pwd)\" && npm run build:edgeone",
   "outputDirectory": "./dist",
   "nodeVersion": "20.18.0",
   "rewrites": [{ "source": "/*", "destination": "/index.html" }],
@@ -34,13 +34,17 @@
 }
 ```
 
-**控制台只需确认一项：**
+**控制台不用改任何构建配置** —— 构建命令、安装命令、输出目录、Node 版本全部写死在
+`edgeone.json` 里了，平台会优先用文件里的配置。
 
-| 配置项 | 值 |
-|---|---|
-| **根目录** | `/`（仓库根目录，保持默认） |
+这份 `edgeone.json` 在**仓库根目录**和 **`Genshin-Impact-Wish-Simulator/` 应用目录**
+各放了一份（内容完全相同），并且：
 
-其余的（构建命令 / 安装命令 / 输出目录 / Node 版本）`edgeone.json` 里已经写好，平台会优先用文件里的配置。
+- **构建命令是路径自适应的** —— `$(ls -d Genshin-Impact-Wish-Simulator 2>/dev/null || pwd)`
+  会自动定位到应用目录，所以控制台的「根目录」设成 `/` 或设成
+  `Genshin-Impact-Wish-Simulator` 都能正常工作；
+- **构建产物写两份** —— 仓库根的 `dist/` 和应用目录的 `dist/` 各一份，
+  所以 `outputDirectory: "./dist"` 在两种根目录下都能找到产物。
 
 > ### 为什么必须写这四个字段
 >
@@ -56,6 +60,9 @@
 > 结果就是**访问域名 404** —— 因为压根没有任何静态产物被构建出来。
 > 加上这四个字段后，平台才会真正跑 `npm install` + `npm run build:edgeone`，
 > 并把 `dist/` 里的内容作为静态资源部署。
+>
+> 另外注意日志里的 `Cloning ... (Commit: xxxxx)` 那行 —— **确认一下克隆的是最新提交**。
+> 如果 commit 号比你推的最后一个提交旧，说明这次部署用的还是修复前的代码。
 
 **环境变量**（可选，「项目设置 → 环境管理」里配）：
 
@@ -67,15 +74,15 @@
 
 平台上的环境变量优先级高于仓库里的 `.env.production`，改域名直接在控制台配就行。
 
-**构建流程实测**：本地跑 `npm run build:edgeone` 会在**仓库根目录**生成 `dist/`  
-（1933 个文件 / 141MB），包含 `index.html`、`edgeone.json`、`sw.js`，  
+**构建流程实测**：本地跑 `npm run build:edgeone` 会在**仓库根目录**生成 `dist/`
+（1934 个文件 / 141MB），包含 `index.html`、`edgeone.json`、`sw.js`，
 以及全部带目录形式入口的子路由页面。
 
 **仓库里为 EdgeOne 做的适配：**
 
 | 文件 | 作用 |
 |---|---|
-| `edgeone.json`（仓库根目录） | 构建命令 / 安装命令 / 输出目录 / Node 版本 / SPA fallback / 缓存策略 |
+| `edgeone.json`（仓库根 + 应用目录各一份） | 构建命令 / 安装命令 / 输出目录 / Node 版本 / SPA fallback / 缓存策略 |
 | `.npmrc` | 把 sharp 的二进制下载指向 npmmirror 镜像，避免国内构建卡在 GitHub Releases |
 | `.env.production` | 提交进仓库的构建默认值，`.env` 被 gitignore 时的兜底 |
 | `.nvmrc` | 锁定 Node 20.18.0（EdgeOne 预装版本之一，不会触发额外下载） |
@@ -83,9 +90,9 @@
 | `build-edgeone.cjs` | 构建入口：vite build + 把产物整理到仓库根的 `dist/` |
 | `pack-edgeone.cjs` | 产物准备（补 sw.js / 目录形式入口 / edgeone.json）+ 打成 ZIP |
 
-> **关于 `sharp`**：`vite-imagetools` 依赖 sharp，而 sharp 的原生二进制默认从 GitHub Releases 下载。  
-> 边缘构建机如果连不上 GitHub 就会挂掉。仓库里做了双重保险 ——  
-> `.npmrc` 指向镜像源，实在装不上时 `vite.config.js` 会跳过图片优化继续构建  
+> **关于 `sharp`**：`vite-imagetools` 依赖 sharp，而 sharp 的原生二进制默认从 GitHub Releases 下载。
+> 边缘构建机如果连不上 GitHub 就会挂掉。仓库里做了双重保险 ——
+> `.npmrc` 指向镜像源，实在装不上时 `vite.config.js` 会跳过图片优化继续构建
 > （只影响图片压缩率，不影响功能）。
 
 ---
@@ -148,7 +155,7 @@ npm run pack:edgeone
 3. **剔除** `vite-manifest.json`（SvelteKit 明确不建议公开）；
 4. **补目录形式入口** —— 把 `screen/wishitem.html` 额外复制成 `screen/wishitem/index.html`，  
    这样 `/screen/wishitem` 和 `/screen/wishitem/` 都能命中静态文件，不依赖平台的扩展名补全规则；
-5. **生成 `edgeone.json`** —— 写入构建四字段 + SPA fallback 与缓存策略（见下）。
+5. **生成 `edgeone.json`** —— 写入 SPA fallback 与缓存策略（见下）。
 
 > 不想打 ZIP 也可以用 `npm run build:edgeone`，产物会整理到**仓库根目录的 `dist/`**，  
 > 直接把整个 `dist/` 目录拖进上传区。
@@ -183,13 +190,13 @@ npm run pack:edgeone
 
 ## 五、`edgeone.json` 说明
 
-仓库根目录有一份（平台读这份），构建产物 `dist/` 里也会有一份：
+**仓库根目录**和 **`Genshin-Impact-Wish-Simulator/` 应用目录各有一份**（内容相同），构建产物 `dist/` 里也会有一份：
 
 ```json
 {
   "name": "genshin-wish-simulator",
-  "installCommand": "cd Genshin-Impact-Wish-Simulator && npm install",
-  "buildCommand": "cd Genshin-Impact-Wish-Simulator && npm run build:edgeone",
+  "installCommand": "cd \"$(ls -d Genshin-Impact-Wish-Simulator 2>/dev/null || pwd)\" && npm install",
+  "buildCommand": "cd \"$(ls -d Genshin-Impact-Wish-Simulator 2>/dev/null || pwd)\" && npm run build:edgeone",
   "outputDirectory": "./dist",
   "nodeVersion": "20.18.0",
   "rewrites": [{ "source": "/*", "destination": "/index.html" }],
