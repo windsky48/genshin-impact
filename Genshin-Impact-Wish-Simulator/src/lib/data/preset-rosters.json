@@ -1,0 +1,49 @@
+{
+	"presets": [
+		{
+			"id": "demo",
+			"label": "demo",
+			"source": "static",
+			"desc": "9 人混合示例",
+			"members": [
+				{ "rarity": 5, "name": "夜兰" },
+				{ "rarity": 5, "name": "纳西妲" },
+				{ "rarity": 5, "name": "妮露" },
+				{ "rarity": 4, "name": "砂糖" },
+				{ "rarity": 4, "name": "白术" },
+				{ "rarity": 4, "name": "烟绯" },
+				{ "rarity": 3, "name": "安柏" },
+				{ "rarity": 3, "name": "凯亚" },
+				{ "rarity": 3, "name": "芭芭拉" }
+			]
+		},
+		{
+			"id": "fiveStarChar",
+			"label": "fiveStarChar",
+			"source": "characters",
+			"rarity": 5,
+			"desc": "全部 5★ 角色"
+		},
+		{
+			"id": "fourStarChar",
+			"label": "fourStarChar",
+			"source": "characters",
+			"rarity": 4,
+			"desc": "全部 4★ 角色"
+		},
+		{
+			"id": "allChar",
+			"label": "allChar",
+			"source": "characters",
+			"rarity": 0,
+			"desc": "全部角色"
+		},
+		{
+			"id": "fiveStarWeapon",
+			"label": "fiveStarWeapon",
+			"source": "weapons",
+			"rarity": 5,
+			"desc": "全部 5★ 武器"
+		}
+	]
+}
