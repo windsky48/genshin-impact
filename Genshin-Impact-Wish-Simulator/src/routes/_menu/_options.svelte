@@ -16,6 +16,7 @@
 	import { localeName, flags } from '$lib/data/country.json';
 	import { availableCurrencies, userCurrencies } from '$lib/helpers/currencies';
 	import { loadMembers } from '$lib/helpers/member-loader';
+	import { presetRosters } from '$lib/helpers/preset-roster';
 
 	export let name;
 	export let useInput = false;
@@ -23,6 +24,7 @@
 	export let sub = false;
 	export let activeIndicator = null;
 	export let showOption = false;
+	export let presets = presetRosters;
 
 	const handleOption = getContext('handleOption');
 	const reset = getContext('factoryReset');
@@ -35,6 +37,17 @@
 
 		dispatch('select', { selected });
 		handleOption('');
+	};
+
+	// 预设名单
+	$: currentPresetLabel = activeIndicator
+		? presets.find((p) => p.id === activeIndicator)?.label || null
+		: null;
+
+	const selectPreset = (preset) => {
+		playSfx();
+		handleOption('');
+		dispatch('preset', { preset });
 	};
 
 	const openOption = () => {
@@ -215,17 +228,50 @@
 		<!-- Reset -->
 	{:else if name === 'reset'}
 		<button class="option-select" on:click={reset}>
-			<i class="gi-delete" style="vertical-align: bottom; line-height: 0; margin-right: .2rem" />
+			<i class="gi-delete" style="vertical-align: bottom; margin-right: 0.2rem" />
 			{$t('menu.resetButton')}
 		</button>
 
 		<!-- General Option -->
 	{:else if name === 'upload'}
 		<input class="option-select-square" bind:files type="file" id="fileInput" accept=".txt" />
-			
+
 		<button class="option-select" on:click={handleUpload}>
 			上传
 		</button>
+
+		<!-- 预设名单 -->
+	{:else if name === 'preset'}
+		<div class="option-select preset">
+			<button
+				class="selected"
+				style="width: 100%; height:100%"
+				on:click|stopPropagation={openOption}
+			>
+				{currentPresetLabel ? $t(`menu.preset.${currentPresetLabel}`) : $t('menu.preset.none')}
+			</button>
+			<i class="gi-caret-{showOption ? 'up' : 'down'}" />
+			{#if showOption}
+				<div class="select" in:fly={{ duration: 200, y: -10 }}>
+					{#each presets as preset}
+						<button
+							class:selected={activeIndicator === preset.id}
+							on:click|stopPropagation={() => selectPreset(preset)}
+						>
+							<span style="text-align:center;width:100%;padding: 3%">
+								{$t(`menu.preset.${preset.label}`)}
+							</span>
+						</button>
+					{/each}
+					<button
+						class:selected={!activeIndicator}
+						on:click|stopPropagation={() => selectPreset(null)}
+					>
+						<span style="text-align:center;width:100%;padding: 3%">{$t('menu.preset.clear')}</span>
+					</button>
+				</div>
+			{/if}
+		</div>
 	{:else}
 		<div class="option-select">
 			<button
@@ -393,6 +439,12 @@
 		align-items: center;
 		line-height: 0%;
 		padding: 6% 8%;
+	}
+
+	.preset button.selected {
+		font-size: 0.65rem;
+		padding: 0 0.4rem;
+		line-height: 1.3;
 	}
 
 	.flag {

@@ -5,7 +5,7 @@
 	import { locale, t } from 'svelte-i18n';
 	import OverlayScrollbars from 'overlayscrollbars';
 
-	import { autoskip, isCustomBanner, multipull, wishAmount } from '$lib/store/app-stores';
+	import { autoskip, isCustomBanner, memberList, multipull, wishAmount } from '$lib/store/app-stores';
 	import { localConfig } from '$lib/helpers/dataAPI/api-localstore';
 	import { calculateByteSize } from '$lib/helpers/dataAPI/api-filesystem';
 	import { pauseSfx, playSfx } from '$lib/helpers/audio/audio';
@@ -13,6 +13,7 @@
 	import { factoryReset } from '$lib/helpers/dataAPI/storage-reset';
 	import { pushToast } from '$lib/helpers/toast';
 	import { assets } from '$lib/store/app-stores';
+	import { applyPresetRoster, clearRoster, presetRosters } from '$lib/helpers/preset-roster';
 
 	import Modal from '$lib/components/ModalTpl.svelte';
 	import Icon from '$lib/components/Icon.svelte';
@@ -28,7 +29,7 @@
 	const handleMuted = ({ detail }) => {
 		const { selected } = detail;
 		isMuted = selected === 'yes';
-		if (isMuted) pauseSfx('wishBacksound'); //stop sfx Before set config
+		if (!isMuted) pauseSfx('wishBacksound'); //stop sfx Before set config
 		localConfig.set('muted', isMuted);
 		if (!isMuted) playSfx('wishBacksound'); // Play SFX after set config
 	};
@@ -40,7 +41,7 @@
 		const isAutoSkip = selected === 'yes';
 		autoskip.set(isAutoSkip);
 		localConfig.set('autoskip', isAutoSkip);
-		if (isAutoSkip) return readyToPull.set(true);
+		if (!isAutoSkip) return readyToPull.set(true);
 		const cekExpress = await meteorCheck();
 		readyToPull.set(cekExpress);
 	};
@@ -104,6 +105,25 @@
 	const cancelReset = () => {
 		showResetModal = false;
 		playSfx('close');
+	};
+
+	// 预设名单
+	let selectedPreset = '';
+	const handlePreset = ({ detail }) => {
+		const { preset } = detail;
+		if (!preset) {
+			clearRoster();
+			selectedPreset = '';
+			pushToast({ message: $t('menu.preset.cleared'), type: 'info' });
+			return;
+		}
+
+		const members = applyPresetRoster(preset.id, $t);
+		selectedPreset = preset.id;
+		pushToast({
+			message: $t('menu.preset.applied', { values: { count: members.length } }),
+			type: 'success'
+		});
 	};
 
 	let optionsContainer;
@@ -211,6 +231,22 @@
 
 	<OptionMenu name="upload">导入名单</OptionMenu>
 
+	<OptionMenu
+		name="preset"
+		presets={presetRosters}
+		showOption={optionToShow === 'preset'}
+		activeIndicator={selectedPreset}
+		on:preset={handlePreset}
+	>
+		{$t('menu.preset.label')}
+	</OptionMenu>
+
+	{#if $memberList && $memberList.length > 0}
+		<div class="roster-summary">
+			{$t('menu.preset.current', { values: { count: $memberList.length } })}
+		</div>
+	{/if}
+
 </div>
 
 <style>
@@ -252,6 +288,13 @@
 		padding: 1rem 2.5rem 0.5rem;
 		font-size: 0.87rem;
 		border-radius: 0.3rem;
+	}
+
+	.roster-summary {
+		font-size: 0.7rem;
+		color: #8a8578;
+		text-align: right;
+		padding: 0.2rem 0.4rem 0 0;
 	}
 
 	ol li {
