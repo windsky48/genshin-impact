@@ -1,0 +1,30 @@
+{
+	"menu": {
+		"preset": {
+			"label": "Voreinstellungsliste",
+			"none": "Nicht ausgewählt",
+			"clear": "Liste leeren",
+			"cleared": "Liste geleert",
+			"applied": "Voreinstellungsliste angewendet, {count} Einträge",
+			"current": "Aktuelle Liste: {count} Einträge",
+			"demo": "Beispielliste (9)",
+			"fiveStarChar": "5★-Charaktere",
+			"fourStarChar": "4★-Charaktere",
+			"allChar": "Alle Charaktere",
+			"fiveStarWeapon": "5★-Waffen"
+		},
+		"roster": "Teilnehmerliste",
+		"rosterManage": {
+			"count": "{count} Einträge",
+			"empty": "Die Liste ist leer. Importiere zuerst eine Liste oder wähle ein Preset unter Optionen.",
+			"add": "Hinzufügen",
+			"addPlaceholder": "Namen eingeben",
+			"delete": "Entfernen",
+			"setAll": "Alle auf {rarity}★",
+			"setRarity": "Auf {rarity}★ setzen",
+			"weighted": "Nach Seltenheit ziehen",
+			"weightedDesc": "Aus = alle gleich wahrscheinlich. An = Gewichte 5★:{five} 4★:{four} 3★:{three}",
+			"saved": "Aktualisiert"
+		}
+	}
+}

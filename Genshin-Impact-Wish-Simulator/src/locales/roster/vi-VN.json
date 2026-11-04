@@ -1,0 +1,30 @@
+{
+	"menu": {
+		"preset": {
+			"label": "Danh sách có sẵn",
+			"none": "Chưa chọn",
+			"clear": "Xóa danh sách",
+			"cleared": "Đã xóa danh sách",
+			"applied": "Đã áp dụng danh sách có sẵn, {count} thành viên",
+			"current": "Danh sách hiện tại: {count} thành viên",
+			"demo": "Danh sách mẫu (9)",
+			"fiveStarChar": "Nhân vật 5★",
+			"fourStarChar": "Nhân vật 4★",
+			"allChar": "Tất cả nhân vật",
+			"fiveStarWeapon": "Vũ khí 5★"
+		},
+		"roster": "Danh sách",
+		"rosterManage": {
+			"count": "{count} thành viên",
+			"empty": "Danh sách đang trống. Hãy nhập danh sách hoặc chọn một danh sách có sẵn trong Tùy chọn trước.",
+			"add": "Thêm",
+			"addPlaceholder": "Nhập tên",
+			"delete": "Xóa",
+			"setAll": "Đặt tất cả thành {rarity}★",
+			"setRarity": "Đặt thành {rarity}★",
+			"weighted": "Rút theo độ hiếm",
+			"weightedDesc": "Tắt = mọi người cùng cơ hội. Bật = trọng số 5★:{five} 4★:{four} 3★:{three}",
+			"saved": "Đã cập nhật"
+		}
+	}
+}

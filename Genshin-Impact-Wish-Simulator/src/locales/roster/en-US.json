@@ -1,0 +1,30 @@
+{
+	"menu": {
+		"preset": {
+			"label": "Preset roster",
+			"none": "Not selected",
+			"clear": "Clear roster",
+			"cleared": "Roster cleared",
+			"applied": "Preset applied, {count} members",
+			"current": "Current roster: {count} members",
+			"demo": "Sample roster (9)",
+			"fiveStarChar": "5★ characters",
+			"fourStarChar": "4★ characters",
+			"allChar": "All characters",
+			"fiveStarWeapon": "5★ weapons"
+		},
+		"roster": "Roster",
+		"rosterManage": {
+			"count": "{count} member(s)",
+			"empty": "The roster is empty. Import a list or pick a preset from Options first.",
+			"add": "Add",
+			"addPlaceholder": "Enter a name",
+			"delete": "Remove",
+			"setAll": "Set all to {rarity}★",
+			"setRarity": "Set to {rarity}★",
+			"weighted": "Draw by rarity",
+			"weightedDesc": "Off = everyone has the same chance. On = weights 5★:{five} 4★:{four} 3★:{three}",
+			"saved": "Updated"
+		}
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"menu": {
+		"preset": {
+			"label": "预设名单",
+			"none": "未选择",
+			"clear": "清空名单",
+			"cleared": "已清空名单",
+			"applied": "已应用预设名单，共 {count} 人",
+			"current": "当前名单：{count} 人",
+			"demo": "示例名单（9 人）",
+			"fiveStarChar": "五星角色",
+			"fourStarChar": "四星角色",
+			"allChar": "全部角色",
+			"fiveStarWeapon": "五星武器"
+		},
+		"roster": "名单管理",
+		"rosterManage": {
+			"count": "共 {count} 人",
+			"empty": "名单是空的。先到「选项」里导入名单，或者选一个预设名单。",
+			"add": "添加",
+			"addPlaceholder": "输入名字",
+			"delete": "删除",
+			"setAll": "全部设为 {rarity}★",
+			"setRarity": "设为 {rarity}★",
+			"weighted": "按星级概率抽取",
+			"weightedDesc": "关闭后名单里每个人机会相同；开启时权重 5★:{five} 4★:{four} 3★:{three}",
+			"saved": "已更新"
+		}
+	}
+}

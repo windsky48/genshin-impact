@@ -1,0 +1,30 @@
+{
+	"menu": {
+		"preset": {
+			"label": "Liste prédéfinie",
+			"none": "Non sélectionnée",
+			"clear": "Vider la liste",
+			"cleared": "Liste vidée",
+			"applied": "Liste prédéfinie appliquée, {count} membres",
+			"current": "Liste actuelle : {count} membres",
+			"demo": "Liste d'exemple (9)",
+			"fiveStarChar": "Personnages 5★",
+			"fourStarChar": "Personnages 4★",
+			"allChar": "Tous les personnages",
+			"fiveStarWeapon": "Armes 5★"
+		},
+		"roster": "Liste",
+		"rosterManage": {
+			"count": "{count} membre(s)",
+			"empty": "La liste est vide. Importez une liste ou choisissez un préréglage dans Options.",
+			"add": "Ajouter",
+			"addPlaceholder": "Saisir un nom",
+			"delete": "Retirer",
+			"setAll": "Tout passer en {rarity}★",
+			"setRarity": "Passer en {rarity}★",
+			"weighted": "Tirage par rareté",
+			"weightedDesc": "Désactivé = mêmes chances pour tous. Activé = poids 5★:{five} 4★:{four} 3★:{three}",
+			"saved": "Mis à jour"
+		}
+	}
+}

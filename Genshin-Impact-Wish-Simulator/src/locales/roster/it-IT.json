@@ -1,0 +1,30 @@
+{
+	"menu": {
+		"preset": {
+			"label": "Elenco predefinito",
+			"none": "Non selezionato",
+			"clear": "Svuota elenco",
+			"cleared": "Elenco svuotato",
+			"applied": "Elenco predefinito applicato, {count} membri",
+			"current": "Elenco attuale: {count} membri",
+			"demo": "Elenco di esempio (9)",
+			"fiveStarChar": "Personaggi 5★",
+			"fourStarChar": "Personaggi 4★",
+			"allChar": "Tutti i personaggi",
+			"fiveStarWeapon": "Armi 5★"
+		},
+		"roster": "Elenco",
+		"rosterManage": {
+			"count": "{count} membri",
+			"empty": "L'elenco è vuoto. Importa un elenco o scegli un preset da Opzioni.",
+			"add": "Aggiungi",
+			"addPlaceholder": "Inserisci un nome",
+			"delete": "Rimuovi",
+			"setAll": "Imposta tutto a {rarity}★",
+			"setRarity": "Imposta a {rarity}★",
+			"weighted": "Estrazione per rarità",
+			"weightedDesc": "Spento = tutti hanno la stessa probabilità. Acceso = pesi 5★:{five} 4★:{four} 3★:{three}",
+			"saved": "Aggiornato"
+		}
+	}
+}

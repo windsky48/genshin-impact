@@ -1,0 +1,30 @@
+{
+	"menu": {
+		"preset": {
+			"label": "Lista predefinida",
+			"none": "Não selecionada",
+			"clear": "Limpar lista",
+			"cleared": "Lista limpa",
+			"applied": "Lista predefinida aplicada, {count} membros",
+			"current": "Lista atual: {count} membros",
+			"demo": "Lista de exemplo (9)",
+			"fiveStarChar": "Personagens 5★",
+			"fourStarChar": "Personagens 4★",
+			"allChar": "Todos os personagens",
+			"fiveStarWeapon": "Armas 5★"
+		},
+		"roster": "Lista",
+		"rosterManage": {
+			"count": "{count} membro(s)",
+			"empty": "A lista está vazia. Importe uma lista ou escolha um predefinição em Opções.",
+			"add": "Adicionar",
+			"addPlaceholder": "Digite um nome",
+			"delete": "Remover",
+			"setAll": "Definir todos como {rarity}★",
+			"setRarity": "Definir como {rarity}★",
+			"weighted": "Sorteio por raridade",
+			"weightedDesc": "Desligado = todos com a mesma chance. Ligado = pesos 5★:{five} 4★:{four} 3★:{three}",
+			"saved": "Atualizado"
+		}
+	}
+}

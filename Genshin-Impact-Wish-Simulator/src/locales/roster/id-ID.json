@@ -1,0 +1,30 @@
+{
+	"menu": {
+		"preset": {
+			"label": "Daftar bawaan",
+			"none": "Tidak dipilih",
+			"clear": "Kosongkan daftar",
+			"cleared": "Daftar dikosongkan",
+			"applied": "Daftar bawaan diterapkan, {count} anggota",
+			"current": "Daftar saat ini: {count} anggota",
+			"demo": "Daftar contoh (9)",
+			"fiveStarChar": "Karakter 5★",
+			"fourStarChar": "Karakter 4★",
+			"allChar": "Semua karakter",
+			"fiveStarWeapon": "Senjata 5★"
+		},
+		"roster": "Daftar Peserta",
+		"rosterManage": {
+			"count": "{count} anggota",
+			"empty": "Daftar masih kosong. Impor daftar atau pilih daftar prasetel dari Opsi terlebih dahulu.",
+			"add": "Tambah",
+			"addPlaceholder": "Masukkan nama",
+			"delete": "Hapus",
+			"setAll": "Jadikan semua {rarity}★",
+			"setRarity": "Jadikan {rarity}★",
+			"weighted": "Undraw berdasarkan kelangkaan",
+			"weightedDesc": "Mati = semua peluang sama. Nyala = bobot 5★:{five} 4★:{four} 3★:{three}",
+			"saved": "Diperbarui"
+		}
+	}
+}

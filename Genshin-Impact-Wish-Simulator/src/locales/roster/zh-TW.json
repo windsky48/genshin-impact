@@ -1,0 +1,30 @@
+{
+	"menu": {
+		"preset": {
+			"label": "預設名單",
+			"none": "未選擇",
+			"clear": "清空名單",
+			"cleared": "已清空名單",
+			"applied": "已套用預設名單，共 {count} 人",
+			"current": "目前名單：{count} 人",
+			"demo": "範例名單（9 人）",
+			"fiveStarChar": "五星角色",
+			"fourStarChar": "四星角色",
+			"allChar": "全部角色",
+			"fiveStarWeapon": "五星武器"
+		},
+		"roster": "名單管理",
+		"rosterManage": {
+			"count": "共 {count} 人",
+			"empty": "名單是空的。先到「選項」裡匯入名單，或者選一個預設名單。",
+			"add": "新增",
+			"addPlaceholder": "輸入名字",
+			"delete": "刪除",
+			"setAll": "全部設為 {rarity}★",
+			"setRarity": "設為 {rarity}★",
+			"weighted": "依星級機率抽取",
+			"weightedDesc": "關閉後名單裡每個人機會相同；開啟時權重 5★:{five} 4★:{four} 3★:{three}",
+			"saved": "已更新"
+		}
+	}
+}

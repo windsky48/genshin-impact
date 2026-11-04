@@ -1,0 +1,30 @@
+{
+	"menu": {
+		"preset": {
+			"label": "プリセット名簿",
+			"none": "未選択",
+			"clear": "名簿を消去",
+			"cleared": "名簿を消去しました",
+			"applied": "プリセット名簿を適用しました（{count} 人）",
+			"current": "現在の名簿：{count} 人",
+			"demo": "サンプル名簿（9 人）",
+			"fiveStarChar": "5★ キャラクター",
+			"fourStarChar": "4★ キャラクター",
+			"allChar": "全キャラクター",
+			"fiveStarWeapon": "5★ 武器"
+		},
+		"roster": "名簿管理",
+		"rosterManage": {
+			"count": "{count} 人",
+			"empty": "名簿は空です。「オプション」で名簿を読み込むか、プリセットを選んでください。",
+			"add": "追加",
+			"addPlaceholder": "名前を入力",
+			"delete": "削除",
+			"setAll": "全員 {rarity}★ に設定",
+			"setRarity": "{rarity}★ に設定",
+			"weighted": "レア度で抽選",
+			"weightedDesc": "オフの場合は全員同じ確率。オンの場合は重み 5★:{five} 4★:{four} 3★:{three}",
+			"saved": "更新しました"
+		}
+	}
+}
