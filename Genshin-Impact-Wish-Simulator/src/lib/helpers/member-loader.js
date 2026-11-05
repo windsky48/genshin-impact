@@ -1,8 +1,11 @@
 import { memberList } from "$lib/store/app-stores";
 import { localMemberList } from "./dataAPI/api-localstore";
+import { data as defaultMembers } from '$lib/data/members.json';
 
 
-export let memberDB = [];
+// 内置默认名单（src/lib/data/members.json）。
+// 用户上传 txt 或选择预设名单后会被覆盖。
+export let memberDB = defaultMembers;
 
 memberList.subscribe((v) => {
 	memberDB = v;

@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 import { initialAmount, version, wishPhase } from '$lib/data/wish-setup.json';
+import { data as defaultMembers } from '$lib/data/members.json';
 
 const { fates, genesis: igen, primogem: ipri } = initialAmount;
 
@@ -48,4 +49,6 @@ export const editID = writable(0);
 export const customData = writable({});
 export const isCustomBanner = writable(false);
 
-export const memberList = writable([]);
+// 名单（点名）—— 初始值是内置默认名单（src/lib/data/members.json）。
+// 用户上传 txt 或选择预设名单后，会被 localStorage 里的内容覆盖。
+export const memberList = writable(defaultMembers);

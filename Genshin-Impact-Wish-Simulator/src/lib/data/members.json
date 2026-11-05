@@ -1,23 +1,50 @@
 {
-    "data": [
+	"_comment": "应用内置的默认名单。用户从未设置过名单时用这一份。想换成自己的名单就改这个文件，格式：name 唯一键 / chineseChar 显示名 / rarity 星级(3~5)。改完重新构建即可。",
+	"data": [
 		{
-			"name": "thrilling-tales-of-dragon-slayers",
-			"chineseChar": "武器名"
+			"name": "n-0",
+			"chineseChar": "夜兰",
+			"rarity": 5
 		},
 		{
-			"name": "abc",
-			"chineseChar": "张三"
+			"name": "n-1",
+			"chineseChar": "纳西妲",
+			"rarity": 5
 		},
 		{
-			"name": "abc",
-			"chineseChar": "里斯收"
+			"name": "n-2",
+			"chineseChar": "妮露",
+			"rarity": 5
 		},
 		{
-			"name": "abc",
-			"chineseChar": "发顺丰"
-		},{
-			"name": "abc",
-			"chineseChar": "还回去"
+			"name": "n-3",
+			"chineseChar": "砂糖",
+			"rarity": 4
+		},
+		{
+			"name": "n-4",
+			"chineseChar": "白术",
+			"rarity": 4
+		},
+		{
+			"name": "n-5",
+			"chineseChar": "烟绯",
+			"rarity": 4
+		},
+		{
+			"name": "n-6",
+			"chineseChar": "安柏",
+			"rarity": 3
+		},
+		{
+			"name": "n-7",
+			"chineseChar": "凯亚",
+			"rarity": 3
+		},
+		{
+			"name": "n-8",
+			"chineseChar": "芭芭拉",
+			"rarity": 3
 		}
-    ]
+	]
 }

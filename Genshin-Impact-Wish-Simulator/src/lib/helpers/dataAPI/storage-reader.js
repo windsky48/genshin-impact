@@ -16,6 +16,7 @@ import {
 import { localBalance, rollCounter, localConfig, localMemberList } from './api-localstore';
 import { noticeMark } from '../noticeMark';
 import { memberDB } from '../member-loader';
+import { data as defaultMembers } from '$lib/data/members.json';
 
 /**
  * Read Balance From LocalStorage
@@ -53,7 +54,9 @@ export const importLocalConfig = () => {
 	multipull.set(lMulti || 10);
 
 	const lMemberList = localMemberList.get();
-	memberList.set(lMemberList);
+	// 从没设置过名单时 localMemberList.get() 返回 {}（不是数组）→ 用内置默认名单；
+	// 用户主动清空过的话存的是 []，尊重用户操作，保持空名单。
+	memberList.set(Array.isArray(lMemberList) ? lMemberList : defaultMembers);
 };
 
 /**
